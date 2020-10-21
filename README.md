@@ -1,14 +1,21 @@
 # MI-WAVE-511-series
 Code to control a MI-WAVE 511 RF attenuators
 
-Basic usage:
+Basic usage with two attenuators:
 ```
 import PrologixGPIBEthernetCustom
+import Attenuator_511A
 
-controller = PrologixGPIBEthernetCustom.PrologixGPIBEthernetCustom(172.128.1.1)
+controller = PrologixGPIBEthernetCustom.PrologixGPIBEthernetCustom('1.1.1.1')
 controller.connect()
 
-controller.set_attenuation(10, 4)
-controller.set_attenuation(20, 2)
+atten1 = Attenuator_511A.Attenuator_511A(4, controller)
+atten2 = Attenuator_511A.Attenuator_511A(2, controller)
+
+# and that's it !
+att1.set_attenuation(10) #dB
+att2.set_attenuation(30) #dB
 
 controller.close()
+```
+This can be scaled to all the possible GPIB addresses available. 
